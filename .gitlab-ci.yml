@@ -6,6 +6,7 @@ variables:
 before_script:
   - echo $fdroid_keystore_base64 | base64 -d >keystore.jks
   - chmod 600 fdroid/config.py keystore.jks
+  - sha256sum keystore.jks
   - mkdir -p fdroid/repo
   # Patch fdroidserver for microG signature spoofing
   - git clone https://gitlab.com/fdroid/fdroidserver -b 1.1.10
@@ -28,9 +29,6 @@ pages:
     paths:
     - public
     expire_in: 1 week
-  only:
-  - master
-  - schedules
   cache:
     paths:
     - cache
